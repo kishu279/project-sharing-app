@@ -34,26 +34,55 @@ const dataFetched = atomFamily({
   }),
 });
 
-const projectPid = selectorFamily({
-  key: "projectPid",
-  get:
-    ({ token, queryParams }) =>
-    ({ get }) => {
-      console.log(queryParams);
-      const datas = get(dataFetched(token));
-      // console.log(datas);
+// const projectPid = selectorFamily({
+//   key: "projectPid",
+//   get:
+//     ({ token, queryParams }) =>
+//     ({ get }) => {
+//       console.log(queryParams);
+//       const datas = get(dataFetched(token));
+//       // console.log(datas);
 
-      if (queryParams) {
-        const project = datas.find((item) => String(item.pid) === queryParams);
-        console.log(project);
-        if (!project) {
-          throw new Error("Project not found!");
+//       if (queryParams) {
+//         const project = datas.find((item) => String(item.pid) === queryParams);
+//         console.log(project);
+//         if (!project) {
+//           throw new Error("Project not found!");
+//         }
+
+//         return project;
+//       } else {
+//         return {};
+//       }
+//     },
+// });
+
+const projectPid = atomFamily({
+  key: "projectpid",
+  default: selectorFamily({
+    key: "projectpid/Default",
+    get:
+      ({ token, queryParams }) =>
+      ({ get }) => {
+        console.log(queryParams);
+        const datas = get(dataFetched(token));
+        // console.log(datas);
+
+        if (queryParams) {
+          const project = datas.find(
+            (item) => String(item.pid) === queryParams
+          );
+          console.log(project);
+          if (!project) {
+            throw new Error("Project not found!");
+          }
+
+          return project;
+        } else {
+          return {};
         }
-
-        return project;
-      } else {
-        return {};
-      }
-    },
+      },
+  }),
 });
+
 export { dataFetched, projectPid };

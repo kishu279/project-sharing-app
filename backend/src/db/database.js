@@ -141,6 +141,23 @@ async function ViewProjectData({ uid }) {
   }
 }
 
+async function UpdateProjectData({ pid, title, description }) {
+  console.log(pid + title + description);
+  try {
+    await pgClient.query(
+      `UPDATE ps.project
+          SET title=$1,
+              description=$2
+        WHERE pid=$3;
+      `,
+      [title, description, pid]
+    );
+    return true;
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = {
   connectDB,
   CreateTable,
@@ -148,4 +165,5 @@ module.exports = {
   FindUserData,
   InsertProjectData,
   ViewProjectData,
+  UpdateProjectData,
 };

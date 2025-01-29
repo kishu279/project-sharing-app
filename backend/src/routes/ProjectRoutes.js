@@ -50,4 +50,30 @@ router.get("/view", auth, async (req, res) => {
   }
 });
 
+router.post("/update", auth, async (req, res) => {
+  const pid = req.query.pid;
+  // console.log(typeof pid);
+
+  const { title, description } = req.body;
+
+  try {
+    const state = await db.UpdateProjectData({ pid, title, description });
+    if (state) {
+      return res
+        .status(200)
+        .json({ success: true, message: "updated successfully" });
+    }
+
+    return res.status(400).json({
+      success: false,
+      message: "Retry",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err,
+    });
+  }
+});
+
 module.exports = router;
