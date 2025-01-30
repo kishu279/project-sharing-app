@@ -76,4 +76,25 @@ router.post("/update", auth, async (req, res) => {
   }
 });
 
+router.get("/:pid", auth, async (req, res) => {
+  const pid = req.params.pid;
+  const uid = req.uid;
+
+  try {
+    const data = await db.ViewProjectData({ pid });
+    console.log(data);
+
+    return res.status(200).json({
+      success: true,
+      message: "success",
+      data: data,
+    });
+  } catch (err) {
+    return res.status(404).json({
+      success: false,
+      message: err,
+    });
+  }
+});
+
 module.exports = router;

@@ -6,7 +6,7 @@ import Logo from "../components/Logo";
 import Logout from "../components/Logout";
 import axios from "axios";
 
-export default function Project() {
+  export default function Project() {
   const location = useLocation();
   const [queryParams, setQueryParams] = useState("");
   const token = localStorage.getItem("auth-token");
@@ -58,7 +58,6 @@ export default function Project() {
     setInputValue(fetched.contents.description);
   }, [fetched]);
 
-  console.log(fetched);
   return (
     <div>
       <div className="border flex justify-between h-[50px]">

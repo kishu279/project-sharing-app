@@ -117,7 +117,7 @@ async function InsertProjectData({ uid, title, description }) {
   }
 }
 
-async function ViewProjectData({ uid }) {
+async function ViewProjectData({ uid, pid }) {
   try {
     const result = await pgClient.query(
       `
@@ -125,9 +125,9 @@ async function ViewProjectData({ uid }) {
         FROM ps.users
         INNER JOIN ps.project
           ON ps.users.uid=ps.project.uid
-        WHERE ps.users.uid=$1
+        WHERE ps.users.uid=$1 OR ps.project.pid=$2
       `,
-      [uid]
+      [uid, pid]
     );
 
     if (result.rows === null) {
