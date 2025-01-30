@@ -8,30 +8,24 @@ import axios from "axios";
 //     async ({ get }) => {},
 // });
 
-const dataFetched = atomFamily({
+const dataFetched = selectorFamily({
   key: "dataFetched",
-  default: selectorFamily({
-    key: "dataFetchSelector",
-    get:
-      (token) =>
-      async ({ get }) => {
-        try {
-          const response = await axios.get(
-            "http://localhost:3000/project/view",
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+  get:
+    (token) =>
+    async ({ get }) => {
+      try {
+        const response = await axios.get("http://localhost:3000/project/view", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-          return response.data.data;
-        } catch (err) {
-          throw err;
-        }
-      },
-  }),
+        return response.data.data;
+      } catch (err) {
+        throw err;
+      }
+    },
 });
 
 // const projectPid = selectorFamily({

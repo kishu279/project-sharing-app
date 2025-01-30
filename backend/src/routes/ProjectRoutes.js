@@ -78,7 +78,7 @@ router.post("/update", auth, async (req, res) => {
 
 router.get("/:pid", auth, async (req, res) => {
   const pid = req.params.pid;
-  const uid = req.uid;
+  console.log(pid);
 
   try {
     const data = await db.ViewProjectData({ pid });
@@ -90,6 +90,7 @@ router.get("/:pid", auth, async (req, res) => {
       data: data,
     });
   } catch (err) {
+    console.error("err: ", err);
     return res.status(404).json({
       success: false,
       message: err,

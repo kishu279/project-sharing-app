@@ -6,7 +6,7 @@ import Logo from "../components/Logo";
 import Logout from "../components/Logout";
 import axios from "axios";
 
-  export default function Project() {
+export default function Project() {
   const location = useLocation();
   const [queryParams, setQueryParams] = useState("");
   const token = localStorage.getItem("auth-token");
